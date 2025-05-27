@@ -35,7 +35,7 @@ public class TodoItem {
   /**
    * Todoアイテムの作成日時
    */
-  @Column(name = "created_at", nullable = false)
+  @Column(name = "created_at", nullable = false, updatable = false)
   @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
   private LocalDateTime createdAt;
 

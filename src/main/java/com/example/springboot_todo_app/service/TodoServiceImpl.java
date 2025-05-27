@@ -18,10 +18,22 @@ public class TodoServiceImpl implements TodoService {
 
   /**
    * {@inheritDoc}
-   * リポジトリからすべてのTodoアイテムを取得します
+   * リポジトリからすべてのTodoアイテムを取得し、作成日時の降順でソートします
    */
   @Override
   public List<TodoItem> getAllTodos() {
-    return todoItemRepository.findAll();
+    return todoItemRepository.findAllByOrderByCreatedAtDesc();
+  }
+
+  /**
+   * {@inheritDoc}
+   * 新しいTodoアイテムを作成し、リポジトリに保存します
+   */
+  @Override
+  public TodoItem registerTodo(String title, String description) {
+    TodoItem todoItem = new TodoItem();
+    todoItem.setTitle(title);
+    todoItem.setDescription(description);
+    return todoItemRepository.save(todoItem);
   }
 }
