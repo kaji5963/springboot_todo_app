@@ -1,6 +1,6 @@
 package com.example.springboot_todo_app.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.springboot_todo_app.service.TodoService;
@@ -9,7 +9,7 @@ import com.example.springboot_todo_app.dto.TodoListResponse;
 
 /**
  * Todoアプリケーションのホーム画面用コントローラー
- * Todoアイテムの一覧表示などの基本機能を提供します
+ * Todoアイテムの一覧表示機能を提供します
  */
 @RestController
 @RequiredArgsConstructor
