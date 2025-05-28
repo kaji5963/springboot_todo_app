@@ -25,6 +25,7 @@ public interface TodoService {
 
   /**
    * 新しいTodoアイテムを登録します
+   * 登録時は常に未完了（false）状態で作成されます
    *
    * @param title       Todoアイテムのタイトル
    * @param description Todoアイテムの説明
@@ -39,10 +40,11 @@ public interface TodoService {
    * @param id          更新するTodoアイテムのID
    * @param title       新しいタイトル
    * @param description 新しい説明
+   * @param completed   新しい完了状態
    * @return 更新されたTodoアイテム
    * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
    */
-  TodoItem updateTodo(Long id, String title, String description);
+  TodoItem updateTodo(Long id, String title, String description, boolean completed);
 
   /**
    * 指定されたIDのTodoアイテムを削除します
