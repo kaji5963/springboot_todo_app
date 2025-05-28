@@ -51,4 +51,26 @@ public class TodoServiceImpl implements TodoService {
     todoItem.setDescription(description);
     return todoItemRepository.save(todoItem);
   }
+
+  /**
+   * {@inheritDoc}
+   * 指定されたIDのTodoアイテムを更新します。
+   * アイテムが存在しない場合は例外をスローします。
+   *
+   * @param id          更新するTodoアイテムのID
+   * @param title       新しいタイトル
+   * @param description 新しい説明
+   * @return 更新されたTodoアイテム
+   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   */
+  @Override
+  public TodoItem updateTodo(Long id, String title, String description) {
+    TodoItem targetTodo = todoItemRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+
+    targetTodo.setTitle(title);
+    targetTodo.setDescription(description);
+
+    return todoItemRepository.save(targetTodo);
+  }
 }

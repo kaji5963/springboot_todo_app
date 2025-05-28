@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.springboot_todo_app.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import com.example.springboot_todo_app.dto.TodoRegisterRequest;
+import com.example.springboot_todo_app.dto.TodoUpdateRequest;
 import com.example.springboot_todo_app.entity.TodoItem;
 
 /**
@@ -40,5 +41,17 @@ public class TodoController {
   @GetMapping("/{id}/edit")
   public TodoItem getTodo(@PathVariable String id) {
     return todoService.getTodo(Long.parseLong(id));
+  }
+
+  /**
+   * 指定されたIDのTodoアイテムを更新するエンドポイント
+   *
+   * @param id      更新するTodoアイテムのID（文字列形式）
+   * @param request 更新するTodoアイテムの情報（タイトルと説明）
+   * @return 更新されたTodoアイテム
+   */
+  @PutMapping("/{id}/update")
+  public TodoItem updateTodo(@PathVariable String id, @RequestBody TodoUpdateRequest request) {
+    return todoService.updateTodo(Long.parseLong(id), request.getTitle(), request.getDescription());
   }
 }

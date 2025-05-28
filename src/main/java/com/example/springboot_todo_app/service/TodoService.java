@@ -10,7 +10,7 @@ public interface TodoService {
   /**
    * 指定されたIDのTodoアイテムを取得します
    *
-   * @param id TodoアイテムのID
+   * @param id 取得するTodoアイテムのID
    * @return 指定されたIDのTodoアイテム
    */
   TodoItem getTodo(Long id);
@@ -31,4 +31,16 @@ public interface TodoService {
    * @return 登録されたTodoアイテム
    */
   TodoItem registerTodo(String title, String description);
+
+  /**
+   * 指定されたIDのTodoアイテムを更新します
+   * アイテムが存在しない場合は例外をスローします
+   *
+   * @param id          更新するTodoアイテムのID
+   * @param title       新しいタイトル
+   * @param description 新しい説明
+   * @return 更新されたTodoアイテム
+   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   */
+  TodoItem updateTodo(Long id, String title, String description);
 }
