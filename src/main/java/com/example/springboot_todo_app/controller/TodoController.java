@@ -42,6 +42,7 @@ public class TodoController {
 
   /**
    * 新しいTodoアイテムを登録するエンドポイント
+   * 登録時は常に未完了（false）状態で作成されます
    *
    * @param request 登録するTodoアイテムの情報
    * @return 登録されたTodoアイテム
@@ -69,7 +70,7 @@ public class TodoController {
    * 指定されたIDのTodoアイテムを更新するエンドポイント
    *
    * @param id      更新するTodoアイテムのID（文字列形式）
-   * @param request 更新するTodoアイテムの情報（タイトルと説明）
+   * @param request 更新するTodoアイテムの情報（タイトル、説明、完了状態）
    * @return 更新されたTodoアイテム
    */
   @PutMapping("/todos/{id}/update")
@@ -77,7 +78,8 @@ public class TodoController {
   public TodoItem updateTodo(
       @PathVariable @NotBlank @Pattern(regexp = "^[0-9]+$", message = "ID must be numeric") String id,
       @Validated @RequestBody TodoUpdateRequest request) {
-    return todoService.updateTodo(Long.parseLong(id), request.getTitle(), request.getDescription());
+    return todoService.updateTodo(Long.parseLong(id), request.getTitle(), request.getDescription(),
+        request.isCompleted());
   }
 
   /**

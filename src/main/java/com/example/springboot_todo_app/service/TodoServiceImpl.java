@@ -44,12 +44,14 @@ public class TodoServiceImpl implements TodoService {
   /**
    * {@inheritDoc}
    * 新しいTodoアイテムを作成し、リポジトリに保存します
+   * 登録時は常に未完了（false）状態で作成されます
    */
   @Override
   public TodoItem registerTodo(String title, String description) {
     TodoItem todoItem = new TodoItem();
     todoItem.setTitle(title);
     todoItem.setDescription(description);
+    todoItem.setCompleted(false); // 常に未完了状態で作成
     return todoItemRepository.save(todoItem);
   }
 
@@ -61,16 +63,18 @@ public class TodoServiceImpl implements TodoService {
    * @param id          更新するTodoアイテムのID
    * @param title       新しいタイトル
    * @param description 新しい説明
+   * @param completed   新しい完了状態
    * @return 更新されたTodoアイテム
    * @throws TodoNotFoundException 指定されたIDのTodoアイテムが存在しない場合
    */
   @Override
-  public TodoItem updateTodo(Long id, String title, String description) {
+  public TodoItem updateTodo(Long id, String title, String description, boolean completed) {
     TodoItem targetTodo = todoItemRepository.findById(id)
         .orElseThrow(() -> new TodoNotFoundException("Todo not found with id: " + id));
 
     targetTodo.setTitle(title);
     targetTodo.setDescription(description);
+    targetTodo.setCompleted(completed);
 
     return todoItemRepository.save(targetTodo);
   }

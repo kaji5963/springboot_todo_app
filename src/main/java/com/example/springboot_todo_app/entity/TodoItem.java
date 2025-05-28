@@ -33,6 +33,14 @@ public class TodoItem {
   private String description;
 
   /**
+   * Todoアイテムの完了状態
+   * true: 完了（1）
+   * false: 未完了（0）
+   */
+  @Column(nullable = false, columnDefinition = "TINYINT(1)")
+  private boolean completed = false;
+
+  /**
    * Todoアイテムの作成日時
    */
   @Column(name = "created_at", nullable = false, updatable = false)
