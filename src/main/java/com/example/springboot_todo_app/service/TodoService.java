@@ -8,6 +8,14 @@ import java.util.List;
  */
 public interface TodoService {
   /**
+   * 指定されたIDのTodoアイテムを取得します
+   *
+   * @param id TodoアイテムのID
+   * @return 指定されたIDのTodoアイテム
+   */
+  TodoItem getTodo(Long id);
+
+  /**
    * すべてのTodoアイテムを取得します
    * 作成日時の降順（新しい順）でソートされます
    *

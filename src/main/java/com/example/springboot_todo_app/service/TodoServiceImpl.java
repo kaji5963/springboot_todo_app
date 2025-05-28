@@ -18,6 +18,21 @@ public class TodoServiceImpl implements TodoService {
 
   /**
    * {@inheritDoc}
+   * 指定されたIDのTodoアイテムを取得します。
+   * アイテムが存在しない場合は例外をスローします。
+   *
+   * @param id 取得するTodoアイテムのID
+   * @return 指定されたIDのTodoアイテム
+   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   */
+  @Override
+  public TodoItem getTodo(Long id) {
+    return todoItemRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+  }
+
+  /**
+   * {@inheritDoc}
    * リポジトリからすべてのTodoアイテムを取得し、作成日時の降順でソートします
    */
   @Override

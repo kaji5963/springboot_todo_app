@@ -30,4 +30,15 @@ public class TodoController {
   public TodoItem registerTodo(@RequestBody TodoRegisterRequest request) {
     return todoService.registerTodo(request.getTitle(), request.getDescription());
   }
+
+  /**
+   * 指定されたIDのTodoアイテムを取得するエンドポイント
+   *
+   * @param id TodoアイテムのID（文字列形式）
+   * @return 指定されたIDのTodoアイテム
+   */
+  @GetMapping("/{id}/edit")
+  public TodoItem getTodo(@PathVariable String id) {
+    return todoService.getTodo(Long.parseLong(id));
+  }
 }
