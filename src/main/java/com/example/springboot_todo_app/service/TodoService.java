@@ -43,4 +43,13 @@ public interface TodoService {
    * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
    */
   TodoItem updateTodo(Long id, String title, String description);
+
+  /**
+   * 指定されたIDのTodoアイテムを削除します
+   * アイテムが存在しない場合は例外をスローします
+   *
+   * @param id 削除するTodoアイテムのID
+   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   */
+  void deleteTodo(Long id);
 }

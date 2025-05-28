@@ -2,6 +2,7 @@ package com.example.springboot_todo_app.service;
 
 import com.example.springboot_todo_app.entity.TodoItem;
 import com.example.springboot_todo_app.repository.TodoItemRepository;
+import com.example.springboot_todo_app.exception.TodoNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,12 +24,12 @@ public class TodoServiceImpl implements TodoService {
    *
    * @param id 取得するTodoアイテムのID
    * @return 指定されたIDのTodoアイテム
-   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   * @throws TodoNotFoundException 指定されたIDのTodoアイテムが存在しない場合
    */
   @Override
   public TodoItem getTodo(Long id) {
     return todoItemRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+        .orElseThrow(() -> new TodoNotFoundException("Todo not found with id: " + id));
   }
 
   /**
@@ -61,16 +62,32 @@ public class TodoServiceImpl implements TodoService {
    * @param title       新しいタイトル
    * @param description 新しい説明
    * @return 更新されたTodoアイテム
-   * @throws RuntimeException 指定されたIDのTodoアイテムが存在しない場合
+   * @throws TodoNotFoundException 指定されたIDのTodoアイテムが存在しない場合
    */
   @Override
   public TodoItem updateTodo(Long id, String title, String description) {
     TodoItem targetTodo = todoItemRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+        .orElseThrow(() -> new TodoNotFoundException("Todo not found with id: " + id));
 
     targetTodo.setTitle(title);
     targetTodo.setDescription(description);
 
     return todoItemRepository.save(targetTodo);
+  }
+
+  /**
+   * {@inheritDoc}
+   * 指定されたIDのTodoアイテムを削除します。
+   * アイテムが存在しない場合は例外をスローします。
+   *
+   * @param id 削除するTodoアイテムのID
+   * @throws TodoNotFoundException 指定されたIDのTodoアイテムが存在しない場合
+   */
+  @Override
+  public void deleteTodo(Long id) {
+    if (!todoItemRepository.existsById(id)) {
+      throw new TodoNotFoundException("Todo not found with id: " + id);
+    }
+    todoItemRepository.deleteById(id);
   }
 }
